@@ -1,0 +1,108 @@
+USE BookstoreDB;
+
+--Creating table Books
+CREATE TABLE Books (
+    BookID INT PRIMARY KEY,
+    Title VARCHAR(255),
+    Author VARCHAR(255),
+    Genre VARCHAR(50),
+    Price DECIMAL(10, 2),
+    QuantityInStock INT
+);
+
+--Creating table Customers
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Email VARCHAR(255),
+    Phone VARCHAR(15)
+);
+
+--Creating table Sales
+CREATE TABLE Sales (
+    SaleID INT PRIMARY KEY,
+    BookID INT,
+    CustomerID INT,
+    DateOfSale DATE,
+    QuantitySold INT,
+    TotalPrice DECIMAL(10, 2),
+    FOREIGN KEY (BookID) REFERENCES Books(BookID),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+INSERT INTO Books (BookID, Title, Author, Genre, Price, QuantityInStock) VALUES
+(1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 12.99, 50),
+(2, 'To Kill a Mockingbird', 'Harper Lee', 'Fiction', 14.99, 40),
+(3, '1984', 'George Orwell', 'Fiction', 14.99, 35),
+(4, 'The Catcher in the Rye', 'F. Scott Fitzgerald', 'Fiction', 19.99, 45),
+(5, 'The Da Vinci Code', 'Dan Brown', 'Mystery', 24.99, 30),
+(6, 'The Hobbit', 'J.R.R. Tolkien', 'Fantasy', 22.58, 25),
+(7, 'Pride and Prejudice', 'Jane Austen', 'Romance', 17.98, 38),
+(8, 'The Brief Wondrous Life of Oscar Wao', 'Junot Díaz', 'Literary Fiction', 13.99, 40),
+(9, 'One Hundred Years of Solitude', 'Gabriel García Márquez', 'Magical Realism', 19.99, 45),
+(10, 'The Hunger Games', 'Suzanne Collins', 'Science Fiction', 15.99, 40);
+
+INSERT INTO Customers (CustomerID, Name, Email, Phone) VALUES
+(17107200, 'James', 'james@mail.com', '789-4268'),
+(17107201, 'Hanna', 'hanna@mail.com', '645-6531'),
+(17107202, 'Jhon', 'jhon@mail.com', '646-9524'),
+(17107203, 'Conor', 'conor@mail.com', '316-5236'),
+(17107204, 'Karen', 'karen@mail.com', '656-2145');
+
+INSERT INTO Sales (SaleID, BookID, CustomerID, DateOfSale, QuantitySold, TotalPrice) VALUES
+(1, 1, 17107203, '2023-07-12', 1, 12.99),
+(2, 5, 17107200, '2023-12-14', 2, 49.98),
+(3, 3, 17107202, '2023-12-12', 1, 14.99),
+(4, 7, 17107201, '2023-12-19', 3, 53.94),
+(5, 8, 17107204, '2023-12-28', 2, 27.98);
+
+SHOW TABLES;
++-----------------------+
+| Tables_in_BookstoreDB |
++-----------------------+
+| Books                 |
+| Customers             |
+| Sales                 |
++-----------------------+
+3 rows in set (0.00 sec)
+
+SELECT * FROM Books;
++--------+--------------------------------------+--------------------------+------------------+-------+-----------------+
+| BookID | Title                                | Author                   | Genre            | Price | QuantityInStock |
++--------+--------------------------------------+--------------------------+------------------+-------+-----------------+
+|      1 | The Great Gatsby                     | F. Scott Fitzgerald      | Fiction          | 12.99 |              50 |
+|      2 | To Kill a Mockingbird                | Harper Lee               | Fiction          | 14.99 |              40 |
+|      3 | 1984                                 | George Orwell            | Fiction          | 14.99 |              35 |
+|      4 | The Catcher in the Rye               | F. Scott Fitzgerald      | Fiction          | 19.99 |              45 |
+|      5 | The Da Vinci Code                    | Dan Brown                | Mystery          | 24.99 |              30 |
+|      6 | The Hobbit                           | J.R.R. Tolkien           | Fantasy          | 22.58 |              25 |
+|      7 | Pride and Prejudice                  | Jane Austen              | Romance          | 17.98 |              38 |
+|      8 | The Brief Wondrous Life of Oscar Wao | Junot Díaz               | Literary Fiction | 13.99 |              40 |
+|      9 | One Hundred Years of Solitude        | Gabriel García Márquez   | Magical Realism  | 19.99 |              45 |
+|     10 | The Hunger Games                     | Suzanne Collins          | Science Fiction  | 15.99 |              40 |
++--------+--------------------------------------+--------------------------+------------------+-------+-----------------+
+10 rows in set (0.00 sec)
+
+SELECT * FROM Customers;
++------------+-------+----------------+----------+
+| CustomerID | Name  | Email          | Phone    |
++------------+-------+----------------+----------+
+|   17107200 | James | james@mail.com | 789-4268 |
+|   17107201 | Hanna | hanna@mail.com | 645-6531 |
+|   17107202 | Jhon  | jhon@mail.com  | 646-9524 |
+|   17107203 | Conor | conor@mail.com | 316-5236 |
+|   17107204 | Karen | karen@mail.com | 656-2145 |
++------------+-------+----------------+----------+
+5 rows in set (0.01 sec)
+
+SELECT * FROM Sales;
++--------+--------+------------+------------+--------------+------------+
+| SaleID | BookID | CustomerID | DateOfSale | QuantitySold | TotalPrice |
++--------+--------+------------+------------+--------------+------------+
+|      1 |      1 |   17107203 | 2023-07-12 |            1 |      12.99 |
+|      2 |      5 |   17107200 | 2023-12-14 |            2 |      49.98 |
+|      3 |      3 |   17107202 | 2023-12-12 |            1 |      14.99 |
+|      4 |      7 |   17107201 | 2023-12-19 |            3 |      53.94 |
+|      5 |      8 |   17107204 | 2023-12-28 |            2 |      27.98 |
++--------+--------+------------+------------+--------------+------------+
+5 rows in set (0.00 sec)
